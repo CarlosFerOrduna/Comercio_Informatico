@@ -6,4 +6,10 @@ public class ServicioArmado extends Servicio {
 		super(nombre, precioLista);
 	}
 
+	@Override
+	public Double precioVenta() {
+		Double resultado = null;
+		return resultado;
+	}
+
 }

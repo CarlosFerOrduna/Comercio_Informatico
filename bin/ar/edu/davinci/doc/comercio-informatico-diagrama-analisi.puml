@@ -54,6 +54,8 @@ class Insumo{
 }
 
 Interface PrecioVenta{
+
+protected Double precioVenta()
 	
 }
 
@@ -65,11 +67,11 @@ enum TipoInsumo{
 
 enum Dificultad{
 
-	1
-	2
-	3
-	4
-	5
+	UNO
+	DOS
+	TRES
+	CUATRO
+	CINCO
 }
 
 

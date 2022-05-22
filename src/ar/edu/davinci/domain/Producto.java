@@ -1,6 +1,6 @@
 package ar.edu.davinci.domain;
 
-public abstract class Producto {
+public abstract class Producto implements PrecioVenta{
 
 	private String nombre;
 	private Double precioLista;
