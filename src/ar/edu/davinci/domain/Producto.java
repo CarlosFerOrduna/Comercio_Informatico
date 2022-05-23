@@ -2,7 +2,7 @@ package ar.edu.davinci.domain;
 
 import java.util.Objects;
 
-public abstract class Producto implements PrecioVenta {
+public abstract class Producto implements Matematica {
 
 	protected String nombre;
 	protected Double precioLista;

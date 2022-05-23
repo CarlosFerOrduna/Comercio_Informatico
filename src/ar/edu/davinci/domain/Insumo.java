@@ -30,7 +30,7 @@ public class Insumo extends Producto {
 	@Override
 	public Double precioVenta() {
 		Double resultado = null;
-		resultado = this.precioLista * (this.porcentajeGanancia + 1);
+		resultado = Matematica.sumarPorcentaje(precioLista, porcentajeGanancia);
 		resultado = resultado * IVA;
 		return resultado;
 	}

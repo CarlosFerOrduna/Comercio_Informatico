@@ -56,7 +56,7 @@ public class Comercio {
 
 	public void modificarPrecioLista(String nombre, Double precio) {
 		buscarProductoPorNombre(nombre).setPrecioLista(precio);
-		addOperacion(null);
+		addOperacion(buscarProductoPorNombre(nombre));
 	}
 
 	public void addOperacion(Producto producto) {
