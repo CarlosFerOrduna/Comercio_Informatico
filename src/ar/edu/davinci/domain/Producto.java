@@ -1,30 +1,38 @@
 package ar.edu.davinci.domain;
 
-public abstract class Producto implements PrecioVenta{
+import java.util.Objects;
 
-	private String nombre;
-	private Double precioLista;
+public abstract class Producto implements PrecioVenta {
 
-	public Producto(String nombre, Double precioLista) {
+	protected String nombre;
+	protected Double precioLista;
+	protected static final Double IVA = 1.21;
+
+	protected Producto(String nombre, Double precioLista) {
 
 		this.nombre = nombre;
 		this.precioLista = precioLista;
 	}
 
-	public String getNombre() {
+	protected String getNombre() {
 		return nombre;
 	}
 
-	public void setNombre(String nombre) {
+	protected void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
-	public Double getPrecioLista() {
+	protected Double getPrecioLista() {
 		return precioLista;
 	}
 
-	public void setPrecioLista(Double precioLista) {
+	protected void setPrecioLista(Double precioLista) {
 		this.precioLista = precioLista;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(nombre);
 	}
 
 }

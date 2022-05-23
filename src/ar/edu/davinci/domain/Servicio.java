@@ -2,7 +2,7 @@ package ar.edu.davinci.domain;
 
 public abstract class Servicio extends Producto {
 
-	private Double cantidadHoras;
+	protected Double cantidadHoras;
 
 	public Servicio(String nombre, Double precioLista) {
 		super(nombre, precioLista);

@@ -5,9 +5,10 @@ public class Insumo extends Producto {
 	private Double porcentajeGanancia;
 	private TipoInsumo tipoInsumo;
 
-	public Insumo(String nombre, Double precioLista, TipoInsumo tipoInsumo) {
+	public Insumo(String nombre, Double precioLista, TipoInsumo tipoInsumo, Double porcentajeGanacia) {
 		super(nombre, precioLista);
 		this.tipoInsumo = tipoInsumo;
+		this.porcentajeGanancia = porcentajeGanacia;
 	}
 
 	protected TipoInsumo getTipoInsumo() {
@@ -29,6 +30,8 @@ public class Insumo extends Producto {
 	@Override
 	public Double precioVenta() {
 		Double resultado = null;
+		resultado = this.precioLista * (this.porcentajeGanancia + 1);
+		resultado = resultado * IVA;
 		return resultado;
 	}
 
