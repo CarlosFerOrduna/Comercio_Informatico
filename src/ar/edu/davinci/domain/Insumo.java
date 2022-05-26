@@ -1,14 +1,14 @@
 package ar.edu.davinci.domain;
 
-public class Insumo extends Producto {
+class Insumo extends Producto {
 
-	private Double porcentajeGanancia;
+	private Double porcentageGanancia;
 	private TipoInsumo tipoInsumo;
 
-	public Insumo(String nombre, Double precioLista, TipoInsumo tipoInsumo, Double porcentajeGanacia) {
+	public Insumo(String nombre, Double precioLista, TipoInsumo tipoInsumo, Double porcentageGanacia) {
 		super(nombre, precioLista);
 		this.tipoInsumo = tipoInsumo;
-		this.porcentajeGanancia = porcentajeGanacia;
+		this.porcentageGanancia = porcentageGanacia;
 	}
 
 	protected TipoInsumo getTipoInsumo() {
@@ -19,20 +19,28 @@ public class Insumo extends Producto {
 		this.tipoInsumo = tipoInsumo;
 	}
 
-	protected Double getPorcentajeGanancia() {
-		return porcentajeGanancia;
+	protected Double getPorcentageGanancia() {
+		return porcentageGanancia;
 	}
 
-	protected void setPorcentajeGanancia(Double porcentajeGanancia) {
-		this.porcentajeGanancia = porcentajeGanancia;
+	protected void setPorcentageGanancia(Double porcentajeGanancia) {
+		this.porcentageGanancia = porcentajeGanancia;
 	}
 
 	@Override
 	public Double precioVenta() {
 		Double resultado = null;
-		resultado = Matematica.sumarPorcentaje(precioLista, porcentajeGanancia);
-		resultado = resultado * IVA;
+		resultado = Matematica.sumarPorcentage(getPrecioLista(), getPorcentageGanancia());
+		resultado = resultado * (IVA + 1);
 		return resultado;
 	}
+
+	@Override
+	public String toString() {
+		return "Insumo [porcentajeGanancia=" + porcentageGanancia + ", tipoInsumo=" + tipoInsumo + ", nombre=" + nombre
+				+ ", precioLista=" + precioLista + "]";
+	}
+	
+	
 
 }

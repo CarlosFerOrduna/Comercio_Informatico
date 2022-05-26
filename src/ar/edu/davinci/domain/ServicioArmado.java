@@ -1,6 +1,6 @@
 package ar.edu.davinci.domain;
 
-public class ServicioArmado extends Servicio {
+class ServicioArmado extends Servicio {
 
 	public ServicioArmado(String nombre) {
 		super(nombre, 250.0);
@@ -10,10 +10,17 @@ public class ServicioArmado extends Servicio {
 	public Double precioVenta() {
 		Double resultado = null;
 
-		resultado = this.cantidadHoras * this.precioLista;
-		resultado = resultado * (IVA / 2);
+		resultado = getCantidadHoras() * getPrecioLista();
+		resultado = resultado * (1 +(IVA / 2));
 
 		return resultado;
 	}
 
+	@Override
+	public String toString() {
+		return "ServicioArmado [cantidadHoras=" + cantidadHoras + ", nombre=" + nombre + ", precioLista=" + precioLista
+				+ "]";
+	}
+
+	
 }

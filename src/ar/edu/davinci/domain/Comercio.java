@@ -16,10 +16,9 @@ public class Comercio {
 		historial = new ArrayList<Producto>(LIMITE_FACTURAS);
 	}
 
-	public void crearInsumo(String nombre, Double precioLista, TipoInsumo tipo, Double porcentajeGanancia) {
+	public void crearInsumo(String nombre, Double precioLista, TipoInsumo tipo, Double porcentageGanancia) {
 		if (buscarProductoPorNombre(nombre) == null) {
-			productos.add(new Insumo(nombre, precioLista, tipo, porcentajeGanancia));
-			addOperacion(new Insumo(nombre, precioLista, tipo, porcentajeGanancia));
+			productos.add(new Insumo(nombre, precioLista, tipo, porcentageGanancia));
 		} else {
 			System.out.println("El insumo " + nombre + " ya existe.");
 		}
@@ -28,18 +27,16 @@ public class Comercio {
 	public void crearServicioArmado(String nombre) {
 		if (buscarProductoPorNombre(nombre) == null) {
 			productos.add(new ServicioArmado(nombre));
-			addOperacion(new ServicioArmado(nombre));
 		} else {
 			System.out.println("El servicio de armado " + nombre + " ya existe.");
 		}
 	}
 
-	public void crearServicioReparacion(String nombre) {
+	public void crearServicioReparacion(String nombre, Dificultad nivelDificultas) {
 		if (buscarProductoPorNombre(nombre) == null) {
-			productos.add(new ServicioReparacion(nombre));
-			addOperacion(new ServicioReparacion(nombre));
+			productos.add(new ServicioReparacion(nombre, nivelDificultas));
 		} else {
-			System.out.println("El servicio de reparaciÃ³n " + nombre + " ya existe.");
+			System.out.println("El servicio de reparación " + nombre + " ya existe.");
 		}
 	}
 
@@ -56,14 +53,83 @@ public class Comercio {
 
 	public void modificarPrecioLista(String nombre, Double precio) {
 		buscarProductoPorNombre(nombre).setPrecioLista(precio);
-		addOperacion(buscarProductoPorNombre(nombre));
 	}
 
-	public void addOperacion(Producto producto) {
+	public void addOperacion(String nombre) {
+
+		Producto producto = buscarProductoPorNombre(nombre);
+
 		if (producto != null) {
-			historial.add(producto);
-		}else {
+			try {
+
+				Producto cloneProducto = (Producto) producto.clone();
+
+				if (producto instanceof Servicio && ((Servicio) producto).getCantidadHoras() == null) {
+					System.out.println("Debe agregar la cantidad de horas del servicio");
+				} else {
+					historial.add(cloneProducto);
+				}
+
+			} catch (CloneNotSupportedException e) {
+				e.printStackTrace();
+			}
+
+		} else {
 			System.out.println("No se pueden agregar productos nulos.");
 		}
+
+	}
+
+	public String mostrarContenidoProductoPorNombre(String nombre) {
+		String resultado = null;
+		if (buscarProductoPorNombre(nombre) != null) {
+			resultado = buscarProductoPorNombre(nombre).toString();
+		}
+
+		return resultado;
+	}
+
+	public void mostrarContenidoProductos() {
+		for (int i = 0; i < productos.size(); i++) {
+			System.out.printf("%s", productos.get(i).toString() + "\n");
+		}
+	}
+
+	public void mostrarContenidoHistoria() {
+		for (int i = 0; i < historial.size(); i++) {
+			System.out.printf("%s", historial.get(i).toString() + "\n");
+		}
+	}
+
+	public void agregarCantidadHorasServicio(String nombre, Double horas) {
+		Servicio servicio = (Servicio) buscarProductoPorNombre(nombre);
+		servicio.setCantidadHoras(horas);
+	}
+
+	public Integer cantidadServiciosSimples() {
+		Integer resultado = 0;
+		for (Producto producto : productos) {
+			if (producto instanceof ServicioReparacion) {
+				if (((ServicioReparacion) producto).getNivelDificultad() < 2) {
+					resultado = resultado + 1;
+				}
+			}
+		}
+
+		return resultado;
+	}
+
+	public Double totalAPagar() {
+		Double resultado = 0.0;
+		for (Producto producto : historial) {
+			resultado = resultado + producto.precioVenta();
+		}
+		return resultado;
+	}
+
+	public void cambiarPrecioLista(String nombre, Double precio) {
+		Producto producto = buscarProductoPorNombre(nombre);
+
+		producto.setPrecioLista(precio);
 	}
 }

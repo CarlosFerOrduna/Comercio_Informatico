@@ -1,15 +1,16 @@
 package ar.edu.davinci.domain;
 
-public class ServicioReparacion extends Servicio {
+class ServicioReparacion extends Servicio {
 
 	private Dificultad nivelDificultad;
 
-	public ServicioReparacion(String nombre) {
+	public ServicioReparacion(String nombre, Dificultad niveDificultad) {
 		super(nombre, 180.0);
+		this.nivelDificultad = niveDificultad;
 	}
 
-	public Dificultad getNivelDificultad() {
-		return nivelDificultad;
+	public Integer getNivelDificultad() {
+		return nivelDificultad.getNivelDificultad();
 	}
 
 	public void setNivelDificultad(Dificultad nivelDificultad) {
@@ -20,19 +21,27 @@ public class ServicioReparacion extends Servicio {
 	public Double precioVenta() {
 		Double resultado = null;
 
-		resultado = this.getCantidadHoras() * this.getPrecioLista() * precioPorDificultad();	
+		resultado = this.cantidadHoras * this.precioLista * precioPorDificultad();
+		resultado = resultado * (1 + (IVA / 2));
 
 		return resultado;
 	}
 
 	public Double precioPorDificultad() {
 		Double resultado = null;
-		if (this.nivelDificultad.getNivelDificultad() > 3) {
+		if (getNivelDificultad() > 1) {
 			resultado = 1.25;
 		} else {
 			resultado = 1.0;
 		}
+
 		return resultado;
+	}
+
+	@Override
+	public String toString() {
+		return "ServicioReparacion [nivelDificultad=" + nivelDificultad + ", cantidadHoras=" + cantidadHoras
+				+ ", nombre=" + nombre + ", precioLista=" + precioLista + "]";
 	}
 
 }

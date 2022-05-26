@@ -1,6 +1,6 @@
 package ar.edu.davinci.domain;
 
-public abstract class Servicio extends Producto {
+abstract class Servicio extends Producto {
 
 	protected Double cantidadHoras;
 
@@ -8,11 +8,11 @@ public abstract class Servicio extends Producto {
 		super(nombre, precioLista);
 	}
 
-	public Double getCantidadHoras() {
+	protected Double getCantidadHoras() {
 		return cantidadHoras;
 	}
 
-	public void setCantidadHoras(Double cantidadHoras) {
+	protected void setCantidadHoras(Double cantidadHoras) {
 		this.cantidadHoras = cantidadHoras;
 	}
 

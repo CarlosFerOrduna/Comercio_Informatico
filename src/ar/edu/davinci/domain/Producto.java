@@ -1,12 +1,10 @@
 package ar.edu.davinci.domain;
 
-import java.util.Objects;
-
-public abstract class Producto implements Matematica {
+abstract class Producto implements Matematica, Cloneable {
 
 	protected String nombre;
 	protected Double precioLista;
-	protected static final Double IVA = 1.21;
+	protected static final Double IVA = 0.21;
 
 	protected Producto(String nombre, Double precioLista) {
 
@@ -31,8 +29,13 @@ public abstract class Producto implements Matematica {
 	}
 
 	@Override
-	public int hashCode() {
-		return Objects.hash(nombre);
+	protected Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	}
+
+	@Override
+	public String toString() {
+		return "Producto [nombre=" + nombre + ", precioLista=" + precioLista + "]";
 	}
 
 }
